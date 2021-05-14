@@ -3,4 +3,12 @@
     <string name="question">Welcome to quiz app!</string>
     <string name="itstrue">True</string>
     <string name="itsfalse">False</string>
+    <string name="q1">Tony Stark is the richest Marvel character</string>
+    <string name="q2">The first infinity stone to appear was the Space Stone</string>
+    <string name="q3">The most expensive marvel movie is The Age of Ultron</string>
+    <string name="q4">Groot has never said anything else apart from the phrase:“I am Groot”</string>
+    <string name="q5">Nick Fury lost his eye, because it was scratched by a cat</string>
+    <string name="warning_text">Do you want to see the answer?</string>
+    <string name="show_answer_button">Go Back</string>
+
 </resources>

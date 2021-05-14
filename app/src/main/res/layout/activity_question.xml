@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:gravity="center"
-    android:background="@drawable/avengers"
     tools:context=".QuestionActivity">
 
     <TextView
@@ -32,18 +31,18 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:padding="30dp"
+        android:padding="25dp"
         android:text="@string/itstrue"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTint="@android:color/darker_gray"
         android:textColor="@color/black" />
 
     <Button
         android:id="@+id/tvFalse"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
-        android:padding="30dp"
+        android:padding="25dp"
         android:text="@string/itsfalse"
-        android:backgroundTint="@android:color/white"
+        android:backgroundTint="@android:color/darker_gray"
         android:textColor="@color/black"
         />
 
@@ -52,7 +51,15 @@
         android:layout_width="181dp"
         android:layout_height="wrap_content"
         android:backgroundTint="#2196F3"
-        android:padding="25dp"
-        android:text="Check" />
+        android:padding="15dp"
+        android:text="Next" />
+
+    <Button
+        android:id="@+id/showanswer"
+        android:layout_width="181dp"
+        android:layout_height="wrap_content"
+        android:backgroundTint="#2196F3"
+        android:padding="15dp"
+        android:text="Show Answer" />
 
 </LinearLayout>

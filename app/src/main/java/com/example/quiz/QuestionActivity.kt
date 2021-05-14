@@ -8,9 +8,11 @@ import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
+import com.example.quiz.Constants.CORRECT_ANSWERS
 import kotlinx.android.synthetic.main.activity_question.*
 
 class QuestionActivity : AppCompatActivity() {
+
 
     private var mCurrentPosition: Int = 1
     private var mQuestionsList: ArrayList<Question>? = null
@@ -18,7 +20,7 @@ class QuestionActivity : AppCompatActivity() {
     private var mSelectedOptionPosition: Int = 0
     private var mCorrectAnswers: Int = 0
 
-
+    private var count: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_question)
@@ -34,6 +36,20 @@ class QuestionActivity : AppCompatActivity() {
         tvFalse.setOnClickListener {
             selectedView(tvFalse, 2)
         }
+        showanswer.setOnClickListener {
+            val myQuestion = mQuestionsList?.get(mCurrentPosition - 1)
+
+            if(count<3){
+            val newintent =
+                Intent(this@QuestionActivity, AnswerActivity::class.java)
+            newintent.putExtra(CORRECT_ANSWERS, myQuestion!!.correctAnswer)
+            startActivity(newintent)
+        }
+            else{
+                showanswer.text = "No more"
+            }
+            count++
+        }
 
         next.setOnClickListener {
             if (mSelectedOptionPosition == 0) {
@@ -46,8 +62,8 @@ class QuestionActivity : AppCompatActivity() {
                     }
                     else -> {
                         val intent =
-                            Intent(this@QuestionActivity, ResultActivity::class.java)
-                        intent.putExtra(Constants.CORRECT_ANSWERS, mCorrectAnswers)
+                                Intent(this@QuestionActivity, ResultActivity::class.java)
+                        intent.putExtra(CORRECT_ANSWERS, mCorrectAnswers)
                         startActivity(intent)
                         finish()
                         // END
@@ -56,14 +72,9 @@ class QuestionActivity : AppCompatActivity() {
             } else {
                 val question = mQuestionsList?.get(mCurrentPosition - 1)
 
-                if (question!!.correctAnswer != mSelectedOptionPosition) {
-                    answerView(mSelectedOptionPosition, android.R.color.holo_red_light)
-                }
-                else {
+                if (question!!.correctAnswer == mSelectedOptionPosition) {
                     mCorrectAnswers++
                 }
-
-                answerView(question.correctAnswer, android.R.color.holo_green_light)
 
                 if (mCurrentPosition == mQuestionsList!!.size) {
                     next.text = "FINISH"
@@ -76,17 +87,16 @@ class QuestionActivity : AppCompatActivity() {
         }
     }
 
+
     private fun setQuestion() {
 
         val question =
-            mQuestionsList!!.get(mCurrentPosition - 1) // Getting the question from the list with the help of current position.
+                mQuestionsList!!.get(mCurrentPosition - 1) // Getting the question from the list with the help of current position.
 
-        defaultView(android.R.color.white)
+        defaultView(android.R.color.darker_gray)
 
         if (mCurrentPosition == mQuestionsList!!.size) {
             next.text = "FINISH"
-        } else {
-            next.text = "Check"
         }
 
         tvQuestion.text = question.question
@@ -96,7 +106,7 @@ class QuestionActivity : AppCompatActivity() {
     }
 
     private fun selectedView(tv: TextView, selectedOptionNum: Int) {
-        defaultView(android.R.color.white)
+        defaultView(android.R.color.darker_gray)
         mSelectedOptionPosition = selectedOptionNum
     }
 
@@ -107,20 +117,7 @@ class QuestionActivity : AppCompatActivity() {
         options.add(1, tvFalse)
 
         for (option in options) {
-            ViewCompat.setBackgroundTintList( option, ContextCompat.getColorStateList(this, drawableView))
-        }
-    }
-
-    private fun answerView(answer: Int, drawableView: Int) {
-
-        when (answer) {
-            1 -> {
-                ViewCompat.setBackgroundTintList( tvTrue, ContextCompat.getColorStateList(this, drawableView))
-
-            }
-            2 -> {
-                ViewCompat.setBackgroundTintList( tvFalse, ContextCompat.getColorStateList(this, drawableView))
-            }
+            ViewCompat.setBackgroundTintList(option, ContextCompat.getColorStateList(this, drawableView))
         }
     }
 }
